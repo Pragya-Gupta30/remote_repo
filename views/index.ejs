@@ -2,33 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hobby App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Simple E-Commerce</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">My Hobbies</h1>
-        <form action="/add-hobby" method="POST" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="hobby" class="form-control" placeholder="Enter a new hobby" required>
-                <button type="submit" class="btn btn-primary">Add Hobby</button>
-            </div>
-        </form>
-        <ul class="list-group">
-            <% if (typeof hobbies !== 'undefined' && hobbies.length > 0) { %>
-                <% hobbies.forEach(function(hobby, index) { %>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <%= hobby %>
-                        <form action="/delete-hobby" method="POST" style="display:inline;">
-                            <input type="hidden" name="index" value="<%= index %>">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </li>
-                <% }); %>
-            <% } else { %>
-                <li class="list-group-item">No hobbies added yet.</li>
-            <% } %>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">ShopEasy</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mb-4">Products</h1>
+        <div class="row">
+            <% const products = [
+                { id: 1, name: "T-Shirt", price: 15, image: "https://via.placeholder.com/150" },
+                { id: 2, name: "Sneakers", price: 50, image: "https://via.placeholder.com/150" },
+                { id: 3, name: "Backpack", price: 30, image: "https://via.placeholder.com/150" }
+            ]; %>
+            <% products.forEach(product => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="card-text">$<%= product.price %></p>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
     </div>
 </body>
 </html>
